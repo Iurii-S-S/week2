@@ -390,7 +390,6 @@
             aspect-ratio: 1/1;
             border-radius: 48px;
             background: var(--cream);
-            /* #F6F1E7 — совпадает с фоном JPG */
             box-shadow: var(--shadow-lg);
             display: grid;
             place-items: center;
@@ -751,8 +750,6 @@
             object-fit: contain
         }
 
-        /* Знак на синем фоне: белый фон JPG превращаем в аккуратный белый круг,
-   mix-blend-mode отключаем, чтобы синий не «просвечивал» через лого */
         .mark-row .mark.solid {
             background: var(--brand)
         }
@@ -764,7 +761,6 @@
             padding: 5px;
             background: #fff;
             border-radius: 18px;
-            /* было 50% — теперь скруглённый квадрат */
             box-shadow: 0 6px 16px -8px rgba(23, 27, 44, .55);
         }
 
@@ -1020,6 +1016,222 @@
             transform: none
         }
 
+        /* ============ COOKIE BANNER ============ */
+        .cookie-banner {
+            position: fixed;
+            left: 16px;
+            right: 16px;
+            bottom: 16px;
+            z-index: 200;
+            background: #fff;
+            border-radius: 22px;
+            padding: 20px 24px;
+            box-shadow: 0 30px 60px -30px rgba(23, 27, 44, .55), 0 0 0 1px rgba(23, 27, 44, .06);
+            transform: translateY(140%);
+            transition: transform .45s var(--ease), opacity .3s;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .cookie-banner.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .cookie-banner__inner {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            max-width: 1180px;
+            margin-inline: auto;
+        }
+
+        .cookie-banner__text {
+            flex: 1 1 380px;
+            font-size: .92rem;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .cookie-banner__text strong {
+            color: var(--ink);
+            font-family: var(--font-display);
+            font-weight: 700;
+        }
+
+        .cookie-banner__text a {
+            color: var(--brand-600);
+            text-decoration: underline;
+            text-decoration-color: var(--brand-200);
+            text-underline-offset: 3px;
+        }
+
+        .cookie-banner__text a:hover {
+            text-decoration-color: var(--brand);
+        }
+
+        .cookie-banner__actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* ============ MODAL ============ */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .modal[hidden] {
+            display: none;
+        }
+
+        .modal__backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(23, 27, 44, .55);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            animation: modalFade .25s var(--ease);
+        }
+
+        .modal__panel {
+            position: relative;
+            z-index: 1;
+            width: min(760px, 100%);
+            max-height: min(84vh, 820px);
+            overflow-y: auto;
+            background: #fff;
+            border-radius: 28px;
+            padding: clamp(28px, 4vw, 48px);
+            box-shadow: 0 50px 90px -40px rgba(23, 27, 44, .7);
+            animation: modalPop .35s var(--ease);
+        }
+
+        .modal__panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal__panel::-webkit-scrollbar-thumb {
+            background: var(--brand-200);
+            border-radius: 4px;
+        }
+
+        .modal__panel h2 {
+            font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+            margin-bottom: 6px;
+            padding-right: 44px;
+        }
+
+        .modal__meta {
+            color: var(--muted);
+            font-size: .85rem;
+            margin-bottom: 24px;
+        }
+
+        .modal__panel h3 {
+            font-size: 1.02rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            margin: 26px 0 10px;
+            color: var(--ink);
+        }
+
+        .modal__panel p {
+            color: var(--muted);
+            font-size: .94rem;
+            margin-bottom: 12px;
+        }
+
+        .modal__panel ul {
+            margin: 0 0 12px;
+            padding-left: 22px;
+            color: var(--muted);
+            font-size: .94rem;
+        }
+
+        .modal__panel li {
+            margin-bottom: 6px;
+        }
+
+        .modal__panel a {
+            color: var(--brand-600);
+            text-decoration: underline;
+            text-decoration-color: var(--brand-200);
+            text-underline-offset: 3px;
+        }
+
+        .modal__panel a:hover {
+            text-decoration-color: var(--brand);
+        }
+
+        .modal__close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            border: 0;
+            cursor: pointer;
+            background: var(--brand-100);
+            color: var(--brand-600);
+            font-size: 1.5rem;
+            line-height: 1;
+            font-family: var(--font-display);
+            font-weight: 700;
+            display: grid;
+            place-items: center;
+            transition: background .2s, transform .2s;
+        }
+
+        .modal__close:hover {
+            background: var(--brand-200);
+            transform: rotate(90deg);
+        }
+
+        .modal__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--cream-2);
+        }
+
+        @keyframes modalFade {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(.97)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
         /* ============ RESPONSIVE ============ */
         @media (max-width:1000px) {
             .hero-grid {
@@ -1131,6 +1343,34 @@
 
             .download-card {
                 border-radius: 28px
+            }
+        }
+
+        @media (max-width:640px) {
+            .cookie-banner {
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+                padding: 18px 18px;
+                border-radius: 20px;
+            }
+
+            .cookie-banner__actions {
+                width: 100%;
+            }
+
+            .cookie-banner__actions .btn {
+                flex: 1 1 auto;
+                justify-content: center;
+            }
+
+            .modal {
+                padding: 12px;
+            }
+
+            .modal__panel {
+                border-radius: 22px;
+                max-height: 90vh;
             }
         }
 
@@ -1475,6 +1715,9 @@
                     <a href="#features">Возможности</a>
                     <a href="#brand">Бренд</a>
                     <a href="#download">Скачать</a>
+                    <a href="mailto:kylik-0306@yandex.ru">Связь с нами</a>
+                    <a href="#" data-open-modal="privacy">Персональные данные</a>
+                    <a href="#" data-open-modal="cookie">Cookie</a>
                 </nav>
             </div>
             <div class="footer-bottom">
@@ -1483,6 +1726,159 @@
             </div>
         </div>
     </footer>
+
+    <!-- ============ COOKIE BANNER ============ -->
+    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite"
+        aria-label="Согласие на использование cookie">
+        <div class="cookie-banner__inner">
+            <div class="cookie-banner__text">
+                <strong>Мы используем cookie.</strong>
+                Продолжая пользоваться сайтом, вы соглашаетесь с
+                <a href="#" data-open-modal="cookie">Политикой в отношении cookie</a>
+                и
+                <a href="#" data-open-modal="privacy">Согласием на обработку персональных данных</a>.
+            </div>
+            <div class="cookie-banner__actions">
+                <button type="button" class="btn btn-ghost btn-sm" data-cookie="reject">Только необходимые</button>
+                <button type="button" class="btn btn-primary btn-sm" data-cookie="accept">Принять все</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MODAL: PRIVACY ============ -->
+    <div class="modal" id="modalPrivacy" role="dialog" aria-modal="true" aria-labelledby="modalPrivacyTitle" hidden>
+        <div class="modal__backdrop" data-close-modal></div>
+        <div class="modal__panel" role="document">
+            <button type="button" class="modal__close" aria-label="Закрыть" data-close-modal>&times;</button>
+            <h2 id="modalPrivacyTitle">Согласие на обработку персональных данных</h2>
+            <p class="modal__meta">Редакция от 1 января 2026 года</p>
+
+            <h3>1. Оператор</h3>
+            <p>
+                Оператором персональных данных является владелец сайта «Невуми»
+                (далее — Оператор). Контактный адрес для обращений:
+                <a href="mailto:kylik-0306@yandex.ru">kylik-0306@yandex.ru</a>.
+            </p>
+
+            <h3>2. Какие данные обрабатываются</h3>
+            <p>
+                Оператор обрабатывает следующие категории данных, которые пользователь предоставляет
+                добровольно либо которые передаются автоматически при использовании сайта:
+            </p>
+            <ul>
+                <li>файлы cookie и идентификаторы сессии;</li>
+                <li>IP-адрес, данные о браузере и устройстве (User-Agent);</li>
+                <li>дата и время посещения, просмотренные страницы, источник перехода;</li>
+                <li>адрес электронной почты — только если пользователь сам его оставил.</li>
+            </ul>
+
+            <h3>3. Цели обработки</h3>
+            <ul>
+                <li>обеспечение работы сайта и его безопасности;</li>
+                <li>анализ посещаемости и улучшение качества контента;</li>
+                <li>ответ на обращения пользователя, если он с нами связался.</li>
+            </ul>
+
+            <h3>4. Правовые основания</h3>
+            <p>
+                Обработка осуществляется на основании согласия субъекта персональных данных
+                (п. 1 ч. 1 ст. 6 Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных»),
+                а также в целях исполнения требований законодательства РФ.
+            </p>
+
+            <h3>5. Срок хранения</h3>
+            <p>
+                Персональные данные хранятся не дольше, чем этого требуют цели обработки,
+                но не более 3 лет с момента последнего взаимодействия пользователя с сайтом,
+                если иной срок не установлен законом.
+            </p>
+
+            <h3>6. Права субъекта</h3>
+            <p>Пользователь вправе:</p>
+            <ul>
+                <li>получить информацию об обработке своих персональных данных;</li>
+                <li>требовать уточнения, блокирования или уничтожения данных;</li>
+                <li>отозвать согласие, направив письмо на
+                    <a href="mailto:kylik-0306@yandex.ru">kylik-0306@yandex.ru</a>;
+                </li>
+                <li>обжаловать действия Оператора в Роскомнадзоре или в суде.</li>
+            </ul>
+
+            <h3>7. Передача третьим лицам</h3>
+            <p>
+                Оператор не продаёт и не передаёт персональные данные третьим лицам,
+                за исключением случаев, прямо предусмотренных законом, а также сервисов
+                веб-аналитики, действующих на условиях конфиденциальности.
+            </p>
+
+            <h3>8. Изменения</h3>
+            <p>
+                Оператор вправе изменять настоящий документ. Актуальная редакция всегда
+                доступна на этой странице.
+            </p>
+
+            <div class="modal__actions">
+                <button type="button" class="btn btn-primary btn-sm" data-cookie="accept">Принять и закрыть</button>
+                <button type="button" class="btn btn-ghost btn-sm" data-close-modal>Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MODAL: COOKIE ============ -->
+    <div class="modal" id="modalCookie" role="dialog" aria-modal="true" aria-labelledby="modalCookieTitle" hidden>
+        <div class="modal__backdrop" data-close-modal></div>
+        <div class="modal__panel" role="document">
+            <button type="button" class="modal__close" aria-label="Закрыть" data-close-modal>&times;</button>
+            <h2 id="modalCookieTitle">Политика в отношении cookie</h2>
+            <p class="modal__meta">Редакция от 1 января 2026 года</p>
+
+            <h3>1. Что такое cookie</h3>
+            <p>
+                Cookie — это небольшие текстовые файлы, которые сайт сохраняет в вашем браузере.
+                Они помогают сайту запоминать ваши действия и предпочтения в течение некоторого времени.
+            </p>
+
+            <h3>2. Какие cookie мы используем</h3>
+            <ul>
+                <li><b>Необходимые.</b> Обеспечивают базовую работу сайта: навигацию, запоминание
+                    вашего выбора в баннере cookie. Без них сайт может работать некорректно.</li>
+                <li><b>Аналитические.</b> Помогают понять, какие страницы популярны, сколько времени
+                    проводят посетители, откуда приходят. Данные собираются в обезличенном виде.</li>
+                <li><b>Функциональные.</b> Запоминают ваши настройки (язык, тему и т.п.) для удобства
+                    последующих визитов.</li>
+            </ul>
+
+            <h3>3. Управление cookie</h3>
+            <p>
+                Вы можете в любой момент отключить или удалить cookie в настройках браузера.
+                Обратите внимание: отключение необходимых cookie может нарушить работу сайта.
+            </p>
+
+            <h3>4. Сторонние сервисы</h3>
+            <p>
+                Для аналитики могут использоваться сторонние сервисы, устанавливающие собственные
+                cookie. Мы не контролируем такие cookie — их политику смотрите на сайтах
+                соответствующих сервисов.
+            </p>
+
+            <h3>5. Согласие</h3>
+            <p>
+                При первом заходе на сайт вы видите баннер согласия. Нажимая «Принять все»,
+                вы соглашаетесь на использование всех типов cookie. Нажимая «Только необходимые»,
+                вы разрешаете только те cookie, без которых сайт не может работать.
+            </p>
+
+            <h3>6. Контакты</h3>
+            <p>
+                Вопросы по cookie: <a href="mailto:kylik-0306@yandex.ru">kylik-0306@yandex.ru</a>.
+            </p>
+
+            <div class="modal__actions">
+                <button type="button" class="btn btn-primary btn-sm" data-cookie="accept">Принять и закрыть</button>
+                <button type="button" class="btn btn-ghost btn-sm" data-close-modal>Закрыть</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         /* ---------- sticky header ---------- */
@@ -1522,6 +1918,106 @@
         } else {
             items.forEach(el => el.classList.add('in'));
         }
+
+        /* ---------- cookie consent + modals ---------- */
+        (function () {
+            const KEY = 'nevumi_cookie_consent';
+            const banner = document.getElementById('cookieBanner');
+            const CONSENT_TTL = 365 * 24 * 60 * 60 * 1000;
+
+            function getConsent() {
+                try {
+                    const raw = JSON.parse(localStorage.getItem(KEY) || 'null');
+                    if (raw && raw.ts && (Date.now() - raw.ts <= CONSENT_TTL)) return raw;
+                } catch (e) { }
+                return null;
+            }
+
+            function saveConsent(value) {
+                try {
+                    localStorage.setItem(KEY, JSON.stringify({ value, ts: Date.now() }));
+                } catch (e) { }
+            }
+
+            function showBanner() {
+                if (!banner || !banner.isConnected) return;
+                void banner.offsetWidth; // принудительный reflow для transition
+                banner.classList.add('show');
+            }
+
+            function hideBanner() {
+                if (!banner || !banner.isConnected) return;
+                banner.classList.remove('show');
+                setTimeout(() => { if (banner.isConnected) banner.remove(); }, 500);
+            }
+
+            /* ★ Показываем баннер сразу после загрузки страницы,
+               если согласия ещё нет (или оно просрочено). */
+            if (banner && !getConsent()) {
+                // небольшая задержка, чтобы transition сработал корректно
+                setTimeout(showBanner, 300);
+            } else if (banner) {
+                banner.remove();
+            }
+
+            /* Реакция на кнопки в баннере */
+            if (banner) {
+                banner.addEventListener('click', (e) => {
+                    const btn = e.target.closest('[data-cookie]');
+                    if (!btn) return;
+                    saveConsent(btn.dataset.cookie);
+                    hideBanner();
+                });
+            }
+
+            /* ---------- modals ---------- */
+            const modals = {
+                privacy: document.getElementById('modalPrivacy'),
+                cookie: document.getElementById('modalCookie')
+            };
+
+            function openModal(name) {
+                const m = modals[name];
+                if (!m) return;
+                m.hidden = false;
+                document.body.classList.add('no-scroll');
+                const focusable = m.querySelector('.modal__close');
+                if (focusable) focusable.focus();
+            }
+            function closeModal(m) {
+                if (!m) return;
+                m.hidden = true;
+                document.body.classList.remove('no-scroll');
+            }
+            function closeAll() {
+                Object.values(modals).forEach(m => { if (m && !m.hidden) closeModal(m); });
+            }
+
+            document.addEventListener('click', (e) => {
+                const opener = e.target.closest('[data-open-modal]');
+                if (opener) {
+                    e.preventDefault();
+                    openModal(opener.dataset.openModal);
+                    return;
+                }
+                const closer = e.target.closest('[data-close-modal]');
+                if (closer) {
+                    closeModal(closer.closest('.modal'));
+                    return;
+                }
+                // кнопки "Принять" внутри модалок
+                const accept = e.target.closest('.modal [data-cookie]');
+                if (accept) {
+                    saveConsent(accept.dataset.cookie);
+                    hideBanner();
+                    closeModal(accept.closest('.modal'));
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeAll();
+            });
+        })();
     </script>
 </body>
 
